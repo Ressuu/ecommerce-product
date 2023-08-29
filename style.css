@@ -4,8 +4,8 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  margin-left: 300px;
-  margin-right: 300px;
+  margin-left: 450px;
+  margin-right: 450px;
   margin-top: 25px;
 }
 
@@ -124,4 +124,66 @@ nav ul li {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
+}
+
+.prices{
+  display: inline-flex;
+  align-items: center;
+   gap: 6px; 
+    flex-shrink: 0;
+}
+
+
+.price-after-sale p{
+  color: #1D2026; 
+  margin-right: 24px;
+  font-family: Kumbh Sans;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.sale p{
+  color: #FF7E1B;
+  font-family: Kumbh Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.price-before-sale{
+  justify-content: flex-end;
+  color:#B6BCC8;
+  font-family:Kumbh Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px;
+  text-decoration-line: line-through;
+}
+
+.price-before-sale p {
+  margin-top: 0px;
+}
+
+.buttons{
+  display: flex;
+}
+
+.button{
+  display: flex;
+  justify-content: space-between;
+  width: 75px;
+  align-items: center;
+  height: 56px;
+  border-radius: 10px;
+  background: #F6F8FD;
+}
+
+.increase,
+.decrease {
+  display: flex;
+align-items: center;
 }
