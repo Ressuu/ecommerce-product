@@ -68,6 +68,11 @@ nav ul li {
   position: relative;
 }
 
+.none-cart {
+  display: none;
+  opacity: 1;
+}
+
 .cart {
   width: 360px;
   position: absolute;
@@ -76,7 +81,8 @@ nav ul li {
   box-shadow: 0px 20px 50px -20px rgba(29, 32, 38, 0.5);
   right: -180px;
   top: 50px;
-  display: none;
+  transition: right 0.3s ease, opacity 0.3s ease; /* Dodaj animację do właściwości right i opacity */
+  transition-delay: 0.1s; /* Dodaj opóźnienie */
 }
 
 .top-cart p {
