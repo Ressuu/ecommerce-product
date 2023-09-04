@@ -70,7 +70,6 @@ nav ul li {
 
 .none-cart {
   display: none;
-  opacity: 1;
 }
 
 .cart {
@@ -109,6 +108,7 @@ nav ul li {
 }
 
 .no-item-in-cart {
+  display: block;
   color: #69707d;
   text-align: center;
   font-family: Kumbh Sans;
