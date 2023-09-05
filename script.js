@@ -113,16 +113,21 @@ function addOrUpdateCartItem(itemName, itemPrice, quantity) {
     let deleteIcon = itemElement.querySelector(".item-in-cart-delete img");
     deleteIcon.addEventListener("click", () => {
       itemElement.remove();
+      showEmptyCartMessage();
     });
 
     cartContainer.appendChild(itemElement);
+  }
+  showEmptyCartMessage();
+}
+function showEmptyCartMessage() {
+  let cartItems = document.querySelectorAll(".item-in-cart");
+  let emptyCartMessage = document.querySelector(".no-item-in-cart");
 
-    let emptyCartMessage = document.querySelector(".no-item-in-cart");
-    if (cartContainer.contains(itemElement)) {
-      emptyCartMessage.style.display = "none";
-    } else {
-      emptyCartMessage.style.display = "block";
-    }
+  if (cartItems.length === 0) {
+    emptyCartMessage.style.display = "block";
+  } else {
+    emptyCartMessage.style.display = "none";
   }
 }
 
@@ -139,4 +144,3 @@ addToCartButton.addEventListener("click", () => {
 
 showCart();
 increaseAndDecrease();
-showEmptyCartMessage();
