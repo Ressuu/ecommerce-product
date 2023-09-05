@@ -75,18 +75,24 @@ function addOrUpdateCartItem(itemName, itemPrice, quantity) {
     ".item-in-cart-name p"
   );
 
-  let existingCartItem = null;
-  existingCartItems.forEach((cartItem) => {
-    if (cartItem.textContent === itemName) {
-      existingCartItem = cartItem.closest(".item-in-cart");
-    }
-  });
+  let existingCartItem = Array.from(existingCartItems).find(
+    (cartItem) => cartItem.textContent === itemName
+  );
 
   if (existingCartItem) {
+    existingCartItem = existingCartItem.closest(".item-in-cart");
+
     const quantityElement = existingCartItem.querySelector(
       ".item-in-cart-price .quantity"
     );
-    const parsedItemQuantity = parseInt(quantityElement.textContent);
+    const currentQuantity = parseInt(quantityElement.textContent, 10);
+    const updatedQuantity = currentQuantity + quantity;
+    quantityElement.textContent = updatedQuantity.toString();
+
+    const totalPriceElement = existingCartItem.querySelector(
+      ".item-in-cart-price .total-to-pay"
+    );
+    totalPriceElement.textContent = `$${itemPrice * updatedQuantity}.00`;
   } else {
     let itemElement = document.createElement("div");
 
@@ -102,7 +108,7 @@ function addOrUpdateCartItem(itemName, itemPrice, quantity) {
           </div>
           <div class="item-in-cart-price">
             <p>$${itemPrice}.00 x <span class="quantity">${quantity}</span></p>
-            <span>$${itemPrice * quantity}.00</span>
+            <span class="total-to-pay">$${itemPrice * quantity}.00</span>
           </div>
         </div>
         <div class="item-in-cart-delete">
@@ -120,6 +126,7 @@ function addOrUpdateCartItem(itemName, itemPrice, quantity) {
   }
   showEmptyCartMessage();
 }
+
 function showEmptyCartMessage() {
   let cartItems = document.querySelectorAll(".item-in-cart");
   let emptyCartMessage = document.querySelector(".no-item-in-cart");
