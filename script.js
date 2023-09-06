@@ -1,5 +1,6 @@
 const cartContainer = document.querySelector(".main-cart-container");
 
+// Show cart when click on cart icon
 function showCart() {
   cartIcon = document.querySelector(".cart-img");
   cart = document.querySelector(".cart");
@@ -32,42 +33,7 @@ function increaseAndDecrease() {
   });
 }
 
-// function addAndDeleteCartItems() {
-//   let itemName = "Fall Limited Edition Sneakers";
-//   let itemPrice = 125;
-//   let quantity = 1;
-//   const cartContainer = document.querySelector(".main-cart-container");
-//   let deleteIcons = document.querySelectorAll(".item-in-cart-delete");
-
-//   let itemElement = document.createElement("div");
-//   itemElement.className = "item-in-cart";
-
-//   itemElement.innerHTML = `
-//     <div class="item-in-cart-img">
-//       <img src="./images/image-product-1-thumbnail.jpg" alt="" />
-//     </div>
-//     <div class="middle-section-in-cart">
-//       <div class="item-in-cart-name">
-//         <p></p>
-//       </div>
-//       <div class="item-in-cart-price">
-//         <p>.00 x</p>
-//         <span>00</span>
-//       </div>
-//     </div>
-//     <div class="item-in-cart-delete">
-//       <img src="./images/icon-delete.svg" alt="" />
-//     </div>
-//   `;
-//   cartContainer.appendChild(itemElement);
-
-//   cartContainer.style.display = "block";
-
-//   deleteIcons = document.querySelectorAll(".item-in-cart-delete");
-
-//   emptyCart.style.display = "none";
-//   cartContainer.style.overflowY = "auto";
-// }
+// Add order to cart or update quantity, price in cart
 
 function addOrUpdateCartItem(itemName, itemPrice, quantity) {
   const cartContainer = document.querySelector(".main-cart-container");
@@ -127,6 +93,8 @@ function addOrUpdateCartItem(itemName, itemPrice, quantity) {
   showEmptyCartMessage();
 }
 
+// Showing message when cart is empty
+
 function showEmptyCartMessage() {
   let cartItems = document.querySelectorAll(".item-in-cart");
   let emptyCartMessage = document.querySelector(".no-item-in-cart");
@@ -138,6 +106,8 @@ function showEmptyCartMessage() {
   }
 }
 
+// Add items to cart
+
 let addToCartButton = document.querySelector(".add-to-cart-button button");
 addToCartButton.addEventListener("click", () => {
   const itemName = document.querySelector(".model h1").textContent;
@@ -147,6 +117,30 @@ addToCartButton.addEventListener("click", () => {
   const quantity = parseInt(document.querySelector(".value").textContent);
 
   addOrUpdateCartItem(itemName, itemPrice, quantity);
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  let mainThumbnail = document.querySelector(".main-thumbnail img");
+  let smallThumbnails = document.querySelectorAll(".small-thumbnail img");
+  let fullscreenContainer = document.querySelector(".fullscreen-container");
+  let fullscreenImage = document.querySelector(".fullscreen-image");
+
+  smallThumbnails.forEach((smallThumbnail) => {
+    smallThumbnail.addEventListener("click", function () {
+      let newSrc = this.getAttribute("data-src");
+      mainThumbnail.src = newSrc;
+      smallThumbnail;
+    });
+  });
+});
+
+mainThumbnail.addEventListener("click", function () {
+  fullscreenImage.src = this.src;
+  fullscreenContainer.style.display = "flex";
+});
+
+fullscreenContainer.addEventListener("click", function () {
+  this.style.display = "none";
 });
 
 showCart();
