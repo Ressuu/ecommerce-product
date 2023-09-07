@@ -36,8 +36,8 @@ function increaseAndDecrease() {
 // Add order to cart or update quantity, price in cart
 
 function addOrUpdateCartItem(itemName, itemPrice, quantity) {
-  const cartContainer = document.querySelector(".main-cart-container");
-  const existingCartItems = cartContainer.querySelectorAll(
+  let cartContainer = document.querySelector(".main-cart-container");
+  let existingCartItems = cartContainer.querySelectorAll(
     ".item-in-cart-name p"
   );
 
@@ -86,10 +86,12 @@ function addOrUpdateCartItem(itemName, itemPrice, quantity) {
     deleteIcon.addEventListener("click", () => {
       itemElement.remove();
       showEmptyCartMessage();
+      updateQuantityNumber();
     });
 
     cartContainer.appendChild(itemElement);
   }
+
   showEmptyCartMessage();
 }
 
@@ -98,11 +100,14 @@ function addOrUpdateCartItem(itemName, itemPrice, quantity) {
 function showEmptyCartMessage() {
   let cartItems = document.querySelectorAll(".item-in-cart");
   let emptyCartMessage = document.querySelector(".no-item-in-cart");
+  let quantityInCart = document.querySelector(".quantity-in-cart");
 
   if (cartItems.length === 0) {
     emptyCartMessage.style.display = "block";
+    quantityInCart.style.display = "none";
   } else {
     emptyCartMessage.style.display = "none";
+    quantityInCart.style.display = "flex";
   }
 }
 
@@ -117,6 +122,7 @@ addToCartButton.addEventListener("click", () => {
   const quantity = parseInt(document.querySelector(".value").textContent);
 
   addOrUpdateCartItem(itemName, itemPrice, quantity);
+  updateQuantityNumber();
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -132,16 +138,21 @@ document.addEventListener("DOMContentLoaded", function () {
       smallThumbnail;
     });
   });
+  mainThumbnail.addEventListener("click", function () {
+    fullscreenImage.src = this.src;
+    fullscreenContainer.style.display = "flex";
+  });
+  fullscreenContainer.addEventListener("click", function () {
+    this.style.display = "none";
+  });
 });
 
-mainThumbnail.addEventListener("click", function () {
-  fullscreenImage.src = this.src;
-  fullscreenContainer.style.display = "flex";
-});
-
-fullscreenContainer.addEventListener("click", function () {
-  this.style.display = "none";
-});
-
+function updateQuantityNumber() {
+  let quantityInCart = document.querySelector(".quantity-in-cart p");
+  let cartContainer = document.querySelector(".main-cart-container");
+  let quantityNumber = cartContainer.querySelector(".item-in-cart .quantity");
+  quantityNumber = quantityNumber.textContent;
+  quantityInCart.textContent = quantityNumber;
+}
 showCart();
 increaseAndDecrease();

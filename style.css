@@ -294,6 +294,28 @@ nav ul li {
   border-radius: 15px;
 }
 
+.quantity-in-cart {
+  position: absolute;
+  bottom: 17px;
+  left: 9px;
+  width: 19px;
+  height: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ff7e1b;
+  border-radius: 6.5px;
+}
+
+.quantity-in-cart p {
+  color: #fff;
+  font-family: Kumbh Sans;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
 /* ENDING HEADER */
 
 .right-section {
@@ -345,6 +367,7 @@ nav ul li {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  margin-bottom: 0px;
 }
 
 .sale p {
