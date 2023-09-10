@@ -14,6 +14,7 @@ function showCart() {
   });
 }
 
+// Increase and decrease quantity on website
 function increaseAndDecrease() {
   let increase = document.querySelector(".increase");
   let decrease = document.querySelector(".decrease");
@@ -86,7 +87,6 @@ function addOrUpdateCartItem(itemName, itemPrice, quantity) {
     deleteIcon.addEventListener("click", () => {
       itemElement.remove();
       showEmptyCartMessage();
-      updateQuantityNumber();
     });
 
     cartContainer.appendChild(itemElement);
@@ -126,26 +126,58 @@ addToCartButton.addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  let nextImage = document.querySelector(".next-image");
+  let previousImage = document.querySelector(".previous-image");
+
+  let photo = [
+    "./images/image-product-1.jpg",
+    "./images/image-product-2.jpg",
+    "./images/image-product-3.jpg",
+    "./images/image-product-4.jpg",
+  ];
+
   let mainThumbnail = document.querySelector(".main-thumbnail img");
   let smallThumbnails = document.querySelectorAll(".small-thumbnail img");
   let fullscreenContainer = document.querySelector(".fullscreen-container");
   let fullscreenImage = document.querySelector(".fullscreen-image");
+  let currentImageIndex = 0;
 
-  smallThumbnails.forEach((smallThumbnail) => {
+  smallThumbnails.forEach((smallThumbnail, index) => {
     smallThumbnail.addEventListener("click", function () {
       let newSrc = this.getAttribute("data-src");
       mainThumbnail.src = newSrc;
-      smallThumbnail;
+      mainThumbnail.setAttribute("data-index", index.toString());
+      currentImageIndex = index;
     });
   });
+
   mainThumbnail.addEventListener("click", function () {
     fullscreenImage.src = this.src;
     fullscreenContainer.style.display = "flex";
+    currentImageIndex = parseInt(mainThumbnail.getAttribute("data-index"));
   });
-  fullscreenContainer.addEventListener("click", function () {
-    this.style.display = "none";
-  });
+
+  function showNextImage(event) {
+    event.stopPropagation();
+    if (currentImageIndex < photo.length - 1) {
+      currentImageIndex++;
+      fullscreenImage.src = photo[currentImageIndex];
+    }
+  }
+
+  function showPreviousImage(event) {
+    event.stopPropagation();
+    if (currentImageIndex > 0) {
+      currentImageIndex--;
+      fullscreenImage.src = photo[currentImageIndex];
+    }
+  }
+
+  nextImage.addEventListener("click", showNextImage);
+  previousImage.addEventListener("click", showPreviousImage);
 });
+
+// Update how many items you have in cart
 
 function updateQuantityNumber() {
   let quantityInCart = document.querySelector(".quantity-in-cart p");
@@ -154,5 +186,6 @@ function updateQuantityNumber() {
   quantityNumber = quantityNumber.textContent;
   quantityInCart.textContent = quantityNumber;
 }
+
 showCart();
 increaseAndDecrease();
