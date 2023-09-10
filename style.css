@@ -269,13 +269,13 @@ nav ul li {
   width: 50px;
   height: 50px;
   flex-shrink: 0;
-  border: 2px solid transparent; /* Dodajemy przeźroczystą ramkę */
-  border-radius: 50px; /* Dodajemy zaokrąglenie ramki */
+  border: 2px solid transparent;
+  border-radius: 50px;
   cursor: pointer;
 }
 
 .profile img:hover {
-  border-color: #ff7e1b; /* Zmieniamy tylko kolor ramki na "hover" */
+  border-color: #ff7e1b;
 }
 
 .line {

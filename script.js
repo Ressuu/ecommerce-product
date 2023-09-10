@@ -87,12 +87,14 @@ function addOrUpdateCartItem(itemName, itemPrice, quantity) {
     deleteIcon.addEventListener("click", () => {
       itemElement.remove();
       showEmptyCartMessage();
+      saveCartToLocalStorage();
     });
 
     cartContainer.appendChild(itemElement);
   }
 
   showEmptyCartMessage();
+  saveCartToLocalStorage();
 }
 
 // Showing message when cart is empty
@@ -152,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Current Image Index:", currentImageIndex); // Dodaj tę linię
     });
   });
-
+  loadCartFromLocalStorage();
   mainThumbnail.addEventListener("click", function () {
     fullscreenImage.src = this.src;
     fullscreenContainer.style.display = "flex";
@@ -192,5 +194,43 @@ function updateQuantityNumber() {
   quantityInCart.textContent = quantityNumber;
 }
 
+//save data in localstorage
+
+function saveCartToLocalStorage() {
+  let cartItems = document.querySelectorAll(".item-in-cart");
+  let items = [];
+  let quantityInCart = 0;
+
+  cartItems.forEach((cartItem) => {
+    let name = cartItem.querySelector(".item-in-cart-name p").textContent;
+    let price = parseFloat(
+      cartItem
+        .querySelector(".item-in-cart-price .total-to-pay")
+        .textContent.slice(1)
+    );
+    let quantity = parseInt(
+      cartItem.querySelector(".item-in-cart-price .quantity").textContent
+    );
+    quantityInCart += quantity;
+    items.push({ name, price, quantity });
+  });
+
+  localStorage.setItem("cartItems", JSON.stringify(items));
+  localStorage.setItem("quantityInCart", quantityInCart.toString());
+}
+
+function loadCartFromLocalStorage() {
+  let items = JSON.parse(localStorage.getItem("cartItems") || "[]");
+  let quantityInCart = parseInt(localStorage.getItem("quantityInCart") || "0");
+
+  items.forEach((item) => {
+    addOrUpdateCartItem(item.name, item.price, item.quantity);
+  });
+
+  let quantityInCartElement = document.querySelector(".quantity-in-cart p");
+  if (quantityInCartElement) {
+    quantityInCartElement.textContent = quantityInCart.toString();
+  }
+}
 showCart();
 increaseAndDecrease();
