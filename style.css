@@ -163,8 +163,24 @@ nav ul li {
 }
 
 .next-image img {
-  width: 25px;
+  width: 30px;
   cursor: pointer;
+}
+
+.close-fullscreen-container {
+  position: absolute;
+  bottom: 101%;
+  left: 87%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.close-fullscreen-container img {
+  width: 25px;
+}
+
+.close-fullscreen-container:hover {
+  fill: #ff7e1b;
 }
 
 .item-in-cart-name p {
@@ -285,7 +301,7 @@ nav ul li {
   height: 445px;
   flex-shrink: 0;
   border-radius: 15px;
-  cursor: zoom-in;
+  cursor: pointer;
 }
 
 .small-thumbnail-container {
@@ -304,7 +320,7 @@ nav ul li {
   flex-shrink: 0;
   border-radius: 10px;
   cursor: pointer;
-  transition: transform 0.3 ease;
+  transition: transform 0.3s ease;
 }
 
 .small-thumbnail img:hover {
@@ -334,7 +350,6 @@ nav ul li {
   max-width: 80%;
   max-height: 80%;
   object-fit: contain;
-  cursor: zoom-out;
   border-radius: 15px;
 }
 

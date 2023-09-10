@@ -128,6 +128,7 @@ addToCartButton.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", function () {
   let nextImage = document.querySelector(".next-image");
   let previousImage = document.querySelector(".previous-image");
+  let closeImage = document.querySelector(".close-fullscreen-container img");
 
   let photo = [
     "./images/image-product-1.jpg",
@@ -175,6 +176,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   nextImage.addEventListener("click", showNextImage);
   previousImage.addEventListener("click", showPreviousImage);
+  closeImage.addEventListener("click", () => {
+    fullscreenContainer.style.display = "none";
+  });
 });
 
 // Update how many items you have in cart
