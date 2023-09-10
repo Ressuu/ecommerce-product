@@ -128,7 +128,7 @@ addToCartButton.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", function () {
   let nextImage = document.querySelector(".next-image");
   let previousImage = document.querySelector(".previous-image");
-  let closeImage = document.querySelector(".close-fullscreen-container img");
+  let closeImage = document.querySelector(".close-fullscreen-container svg");
 
   let photo = [
     "./images/image-product-1.jpg",
