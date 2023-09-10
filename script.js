@@ -149,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
       mainThumbnail.src = newSrc;
       mainThumbnail.setAttribute("data-index", index.toString());
       currentImageIndex = index;
+      console.log("Current Image Index:", currentImageIndex); // Dodaj tę linię
     });
   });
 
