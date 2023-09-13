@@ -56,10 +56,16 @@ function addOrUpdateCartItem(itemName, itemPrice, quantity) {
     const updatedQuantity = currentQuantity + quantity;
     quantityElement.textContent = updatedQuantity.toString();
 
+    const currentPrice = parseFloat(
+      existingCartItem
+        .querySelector(".item-in-cart-price p")
+        .textContent.split(" x ")[0]
+        .slice(1)
+    );
     const totalPriceElement = existingCartItem.querySelector(
       ".item-in-cart-price .total-to-pay"
     );
-    totalPriceElement.textContent = `$${itemPrice * updatedQuantity}.00`;
+    totalPriceElement.textContent = `$${currentPrice * updatedQuantity}.00`;
   } else {
     let itemElement = document.createElement("div");
 
@@ -128,6 +134,7 @@ addToCartButton.addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  loadCartFromLocalStorage();
   let nextImage = document.querySelector(".next-image");
   let previousImage = document.querySelector(".previous-image");
   let closeImage = document.querySelector(".close-fullscreen-container svg");
@@ -154,7 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Current Image Index:", currentImageIndex); // Dodaj tę linię
     });
   });
-  loadCartFromLocalStorage();
   mainThumbnail.addEventListener("click", function () {
     fullscreenImage.src = this.src;
     fullscreenContainer.style.display = "flex";
@@ -199,37 +205,46 @@ function updateQuantityNumber() {
 function saveCartToLocalStorage() {
   let cartItems = document.querySelectorAll(".item-in-cart");
   let items = [];
-  let quantityInCart = 0;
+  let totalQuantity = 0;
 
   cartItems.forEach((cartItem) => {
     let name = cartItem.querySelector(".item-in-cart-name p").textContent;
-    let price = parseFloat(
+
+    let basePrice = parseFloat(
+      cartItem
+        .querySelector(".item-in-cart-price p")
+        .textContent.split(" x ")[0]
+        .slice(1)
+    );
+
+    let totalPrice = parseFloat(
       cartItem
         .querySelector(".item-in-cart-price .total-to-pay")
         .textContent.slice(1)
     );
+
     let quantity = parseInt(
       cartItem.querySelector(".item-in-cart-price .quantity").textContent
     );
-    quantityInCart += quantity;
-    items.push({ name, price, quantity });
+    totalQuantity += quantity;
+    items.push({ name, basePrice, totalPrice, quantity });
   });
 
   localStorage.setItem("cartItems", JSON.stringify(items));
-  localStorage.setItem("quantityInCart", quantityInCart.toString());
+  localStorage.setItem("totalQuantity", totalQuantity.toString());
 }
 
 function loadCartFromLocalStorage() {
   let items = JSON.parse(localStorage.getItem("cartItems") || "[]");
-  let quantityInCart = parseInt(localStorage.getItem("quantityInCart") || "0");
+  let totalQuantity = parseInt(localStorage.getItem("totalQuantity") || "0");
 
   items.forEach((item) => {
-    addOrUpdateCartItem(item.name, item.price, item.quantity);
+    addOrUpdateCartItem(item.name, item.basePrice, item.quantity);
   });
 
   let quantityInCartElement = document.querySelector(".quantity-in-cart p");
   if (quantityInCartElement) {
-    quantityInCartElement.textContent = quantityInCart.toString();
+    quantityInCartElement.textContent = totalQuantity.toString();
   }
 }
 showCart();
